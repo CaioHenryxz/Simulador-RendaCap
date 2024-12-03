@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3e3e3;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.625rem;
+        }
+        header img {
+            width: 31.25rem; 
+            height: auto;
+        }
+        h1 {
+            color: #0c1a2c;
+            font-size:2rem;
+            margin: 0 auto;
+
+        }
+
+        .container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+        table {
+             width: 90%; 
+             overflow-x: auto;
+             border-collapse: collapse;
+             max-width: 75rem;
+
+}
+
+th, td {
+    width: 16.6%; 
+    text-align: center; 
+    padding:1rem; 
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.img-categoria {
+  width: 100%;
+  max-width: 3rem;          
+  height: auto;        
+  display: block;
+  margin: 0 auto;       
+}
+
+td {
+  overflow: hidden; 
+  word-wrap: break-word; 
+}
+.logo {
+  max-width: 14rem; /* Define um limite máximo de largura */
+  width: auto;
+  height: auto; /* Mantém a proporção da imagem */
+  display: block; /* Garante que ela não tenha comportamento inline estranho */
+  margin: 0 auto; /* Centraliza a logo */
+}
+
+        th img {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        th {
+            background-color: #0c1a2c;
+            color: rgb(255, 255, 255);
+        }
+        td img {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        input {
+            width: 80%;
+            padding: 0.3125rem;
+            box-sizing: border-box;
+            border: 0.0625rem solid #000000;
+            border-radius: 0.1875rem;
+        }
+        tr:nth-child(1) td, tr:nth-child(2) td, tr:nth-child(3) td, tr:nth-child(4) td {
+            border-color: #9c9c9c; 
+            background-color: #d9d9d9; 
+        }
+        tr:nth-child(5) td, tr:nth-child(6) td, tr:nth-child(7) td {
+            border-color: #ffd700; 
+            background-color: #fffacf; /
+        }
+        tr:nth-child(8) td, tr:nth-child(9) td, tr:nth-child(10) td {
+            border-color: #23e2cf; 
+            background-color: #a5feff; 
+        }
+        td:nth-child(5), td:nth-child(6) {
+            font-weight: bold;
+        }
+        tr:nth-child(1) td:nth-child(5), tr:nth-child(2) td:nth-child(5),
+        tr:nth-child(3) td:nth-child(5), tr:nth-child(4) td:nth-child(5),
+        tr:nth-child(1) td:nth-child(6), tr:nth-child(2) td:nth-child(6),
+        tr:nth-child(3) td:nth-child(6), tr:nth-child(4) td:nth-child(6) {
+            color: #505050; 
+        }
+        tr:nth-child(5) td:nth-child(5), tr:nth-child(6) td:nth-child(5),
+        tr:nth-child(7) td:nth-child(5), tr:nth-child(5) td:nth-child(6),
+        tr:nth-child(6) td:nth-child(6), tr:nth-child(7) td:nth-child(6) {
+            color: #ffd700; 
+        }
+        tr:nth-child(8) td:nth-child(5), tr:nth-child(9) td:nth-child(5),
+        tr:nth-child(10) td:nth-child(5), tr:nth-child(8) td:nth-child(6),
+        tr:nth-child(9) td:nth-child(6), tr:nth-child(10) td:nth-child(6) {
+            color: #10cdba; 
+        }
+        button {
+            padding: 0.625rem 1.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 0.3125rem;
+            margin-top: 0.625rem;
+            background-color: #131e2e;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0d1824;
+        }
+        .result p {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        label[for="package"] {
+    font-size: 1.3rem; 
+    font-weight: bold; 
+    margin-top: 0 auto;
+}
+
+select {
+    font-size: 1.2rem;
+    color: #000000; 
+    padding: 0.3;
+    border-radius: 0.3125rem; 
+    border: 0.1875rem solid #000000; 
+}
+.result p {
+    font-size: 1.25rem; 
+    font-weight: bold;
+    padding: 0.625rem; 
+    background-color: #15253a; 
+    color: rgb(255, 255, 255); 
+    border-radius: 0.3125rem; 
+    margin: 0.625rem 0; 
+}
+
+.result p:first-child {
+    background-color: #0c1a2c; 
+    border: 0.125rem solid #0c1a2c; 
+}
+
+.result p:last-child {
+    background-color: #b80303; 
+    border: 0.125rem solid #b80303;
+}
+
+td:nth-child(2), 
+td:nth-child(3), 
+td:nth-child(4),
+th:nth-child(2), 
+th:nth-child(3), 
+th:nth-child(4) {
+    width: 1.25rem; 
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 0.8rem;
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .logo {
+    max-width:8rem; /* Reduz um pouco o tamanho da logo no celular */
+  }
+
+  th, td {
+    font-size: 0.875rem; /* Ajusta fonte nas células */
+    padding: 0.625rem;
+  }
+
+  input {
+    width: 100%; /* Ocupa todo o espaço da célula */
+    font-size: 0.75rem; /* Texto menor */
+  }
+  h1{
+    font-size: 1.5rem;
+
+  }
+  container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Centralizar Textos */
+  th, td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  label{
+    font-size: 0.9rem;
+    color: #000000;
+
+  }
+  
+  select{
+    font-size: 1rem;
+  }
+  
+  .img-categoria {
+    width: 1.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <img src="imagens/Logo.png" alt="Logo" class="logo">
+        <h1>Simulador</h1>
+    </header>    
+    <center>
+        <label for="package">Selecione o pacote:</label>
+        <select id="package">
+            <option value="diamante">Diamante (até 10ª geração)</option>
+            <option value="ouro">Ouro (até 7ª geração)</option>
+            <option value="prata">Prata (até 4ª geração)</option>
+        </select>
+        <div class="container">
+          <table>
+            <thead>
+                <tr>
+                    <th>Geração</th>
+                    <th><img src="imagens/diamante.png" class="img-categoria" alt="Diamante"></th>
+                    <th><img src="imagens/ouro.png" class="img-categoria" alt="Ouro"></th>
+                    <th><img src="imagens/prata.png" class="img-categoria" alt="Prata"></th>
+                    <th>Comissão (%)</th>
+                    <th>Cashback (R$)</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                
+            </tbody>
+          </table>
+        </div>
+        <button type="button" onclick="calculate()">Calcular</button>
+        <button type="button" onclick="reset()">Apagar</button>
+        <div class="result" id="result">
+            <p>Total de Ganhos: R$ 0.00</p>
+            <p>Deixou de Ganhar: R$ 0.00</p>
+        </div>
+    </center>
+    <script>
+        function createTableRows() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = ''; 
+
+            const commissions = [20, 5, 1, 1, 1, 1, 1, 1, 1, 1]; 
+
+            for (let i = 1; i <= 10; i++) {
+                const row = document.createElement('tr');
+
+                
+                const generationCell = document.createElement('td');
+                generationCell.textContent = `${i}ª geração`;
+                row.appendChild(generationCell);
+
+                
+                const diamondCell = document.createElement('td');
+                const diamondInput = document.createElement('input');
+                diamondInput.type = 'number';
+                diamondInput.id = `diamond${i}`;
+                diamondInput.placeholder = 'Qtd. Diamante';
+                diamondInput.min = 0;
+                diamondCell.appendChild(diamondInput);
+                row.appendChild(diamondCell);
+
+                
+                const goldCell = document.createElement('td');
+                const goldInput = document.createElement('input');
+                goldInput.type = 'number';
+                goldInput.id = `gold${i}`;
+                goldInput.placeholder = 'Qtd. Ouro';
+                goldInput.min = 0;
+                goldCell.appendChild(goldInput);
+                row.appendChild(goldCell);
+
+                
+                const silverCell = document.createElement('td');
+                const silverInput = document.createElement('input');
+                silverInput.type = 'number';
+                silverInput.id = `silver${i}`;
+                silverInput.placeholder = 'Qtd. Prata';
+                silverInput.min = 0;
+                silverCell.appendChild(silverInput);
+                row.appendChild(silverCell);
+
+                
+                const commissionCell = document.createElement('td');
+                commissionCell.textContent = `${commissions[i - 1]}%`;
+                row.appendChild(commissionCell);
+
+                
+                const resultCell = document.createElement('td');
+                resultCell.id = `result${i}`;
+                resultCell.textContent = '0.00';
+                row.appendChild(resultCell);
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        function calculate() {
+            const packageSelected = document.getElementById('package').value;
+            const commissions = [20, 5, 1, 1, 1, 1, 1, 1, 1, 1]; 
+            const baseValues = {
+                diamante: 200,
+                ouro: 100,
+                prata: 50
+            };
+
+            let maxGeneration;
+            switch (packageSelected) {
+                case 'diamante':
+                    maxGeneration = 10;
+                    break;
+                case 'ouro':
+                    maxGeneration = 7;
+                    break;
+                case 'prata':
+                    maxGeneration = 4;
+                    break;
+            }
+
+            let total = 0;
+            let lost = 0;
+
+            for (let i = 1; i <= 10; i++) {
+                const diamond = parseFloat(document.getElementById(`diamond${i}`).value) || 0;
+                const gold = parseFloat(document.getElementById(`gold${i}`).value) || 0;
+                const silver = parseFloat(document.getElementById(`silver${i}`).value) || 0;
+
+                const resultCell = document.getElementById(`result${i}`);
+                const commissionRate = commissions[i - 1] / 100;
+
+                const diamondEarnings = diamond * commissionRate * baseValues.diamante;
+                const goldEarnings = gold * commissionRate * baseValues.ouro;
+                const silverEarnings = silver * commissionRate * baseValues.prata;
+
+                const generationEarnings = diamondEarnings + goldEarnings + silverEarnings;
+
+                if (i <= maxGeneration) {
+                    resultCell.textContent = generationEarnings.toFixed(2);
+                    total += generationEarnings;
+                } else {
+                    resultCell.textContent = '0.00';
+                    lost += generationEarnings;
+                }
+            }
+
+            document.getElementById('result').innerHTML = `
+                <p>Total de Ganhos: R$ ${total.toFixed(2)}</p>
+                <p>Deixou de Ganhar: R$ ${lost.toFixed(2)}</p>
+            `;
+        }
+
+        function reset() {
+            document.getElementById('package').value = 'diamante';
+            for (let i = 1; i <= 10; i++) {
+                document.getElementById(`diamond${i}`).value = '';
+                document.getElementById(`gold${i}`).value = '';
+                document.getElementById(`silver${i}`).value = '';
+                document.getElementById(`result${i}`).textContent = '0.00';
+            }
+            document.getElementById('result').innerHTML = `
+                <p>Total de Ganhos: R$ 0.00</p>
+                <p>Deixou de Ganhar: R$ 0.00</p>
+            `;
+        }
+
+        window.onload = createTableRows;
+    </script>
+</body>
+</html>
